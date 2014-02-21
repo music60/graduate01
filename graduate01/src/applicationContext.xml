@@ -8,6 +8,10 @@
 		scope="prototype">
 		<property name="userService" ref="loginService"></property>
 	</bean>
+	<bean id="videoAddAction" class="cn.edu.gdupt.action.VideoAddAction"
+		scope="prototype">
+		<property name="videoService" ref="videoService"></property>
+	</bean>
 	<bean id="regAction" class="cn.edu.gdupt.action.RegisterAction" scope="prototype">
 		<property name="userService" ref="registerService"></property>
 	</bean>
