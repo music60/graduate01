@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.2.dtd">
+<struts>
+	
+	
+	<constant name="struts.devMode" value="true"></constant>
+
+	<package name="default" namespace="/" extends="struts-default">
+		<default-action-ref name="index"></default-action-ref>
+		
+		<action name="login" class="loginAction">
+			
+			<result name="SUCCESS" type="redirect">/index.jsp</result>
+			<result name="ERROR" type="redirect">/error.jsp</result>
+		</action>
+	<action name="reg" class="regAction">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+		
+		
+	</package>
+	<package name="user" namespace="/user" extends="json-default">
+		<action name="searchUser" class="searchUserAction" >
+			<!-- <result name="success" type="redirect">/user_search.jsp</result> -->
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+			
+		</action>
+	</package>
+	
+</struts>    
