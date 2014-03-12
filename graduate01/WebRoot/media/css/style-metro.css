@@ -686,6 +686,13 @@ Custom label and badges
   text-shadow: none !important;
 }
 
+.label-failure, 
+.badge-failure {
+  background-color: #ff0000;
+  background-image: none !important;
+  text-shadow: none !important;
+}
+
 .label-important, 
 .badge-important {
   background-color: #ed4e2a;

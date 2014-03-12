@@ -1,5 +1,7 @@
 package cn.edu.gdupt.model;
 
+import java.sql.Timestamp;
+
 /**
  * TArticle entity. @author MyEclipse Persistence Tools
  */
@@ -9,11 +11,12 @@ public class TArticle implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private TUser TUser;
 	private String title;
 	private String content;
-	private String introduce;
-	private Integer userid;
+	private String tag;
 	private String type;
+	private Timestamp date;
 
 	// Constructors
 
@@ -22,20 +25,21 @@ public class TArticle implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public TArticle(String title, Integer userid, String type) {
+	public TArticle(TUser TUser, String title, String type) {
+		this.TUser = TUser;
 		this.title = title;
-		this.userid = userid;
 		this.type = type;
 	}
 
 	/** full constructor */
-	public TArticle(String title, String content, String introduce,
-			Integer userid, String type) {
+	public TArticle(TUser TUser, String title, String content, String tag,
+			String type, Timestamp date) {
+		this.TUser = TUser;
 		this.title = title;
 		this.content = content;
-		this.introduce = introduce;
-		this.userid = userid;
+		this.tag = tag;
 		this.type = type;
+		this.date = date;
 	}
 
 	// Property accessors
@@ -46,6 +50,14 @@ public class TArticle implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public TUser getTUser() {
+		return this.TUser;
+	}
+
+	public void setTUser(TUser TUser) {
+		this.TUser = TUser;
 	}
 
 	public String getTitle() {
@@ -64,20 +76,12 @@ public class TArticle implements java.io.Serializable {
 		this.content = content;
 	}
 
-	public String getIntroduce() {
-		return this.introduce;
+	public String getTag() {
+		return this.tag;
 	}
 
-	public void setIntroduce(String introduce) {
-		this.introduce = introduce;
-	}
-
-	public Integer getUserid() {
-		return this.userid;
-	}
-
-	public void setUserid(Integer userid) {
-		this.userid = userid;
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public String getType() {
@@ -86,6 +90,14 @@ public class TArticle implements java.io.Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Timestamp getDate() {
+		return this.date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
 }

@@ -7,10 +7,10 @@ var TableAdvanced = function () {
         {
             var aData = oTable.fnGetData( nTr );
             var sOut = '<table>';
-            sOut += '<tr><td>Platform(s):</td><td>'+aData[2]+'</td></tr>';
-            sOut += '<tr><td>Engine version:</td><td>'+aData[3]+'</td></tr>';
-            sOut += '<tr><td>CSS grade:</td><td>'+aData[4]+'</td></tr>';
-            sOut += '<tr><td>Others:</td><td>Could provide a link here</td></tr>';
+            sOut += '<tr><td>文章标题:</td><td>'+aData[2]+'</td></tr>';
+            sOut += '<tr><td>点击数:</td><td>'+aData[3]+'</td></tr>';
+            sOut += '<tr><td>发表时间:</td><td>'+aData[4]+'</td></tr>';
+            sOut += '<tr><td>标签:</td><td>'+aData[6]+'</td></tr>';
             sOut += '</table>';
              
             return sOut;

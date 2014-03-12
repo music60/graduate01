@@ -8,26 +8,72 @@
 		scope="prototype">
 		<property name="userService" ref="loginService"></property>
 	</bean>
+	<bean id="userAction" class="cn.edu.gdupt.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="androidUserAction" class="cn.edu.gdupt.action.android.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="minePlanAction" class="cn.edu.gdupt.action.MinePlanAction"
+		scope="prototype">
+		<property name="studyPlanService" ref="studyPlanService"></property>
+	</bean>
+	<bean id="addArticleAction" class="cn.edu.gdupt.action.AddArticleAction"
+		scope="prototype">
+		<property name="articleService" ref="articleService"></property>
+	</bean>
+	<bean id="getArticlesByUseridAction" class="cn.edu.gdupt.action.GetArticlesByUseridAction"
+		scope="prototype">
+		<property name="articleService" ref="articleService"></property>
+	</bean>
+	<bean id="addSourceTypeAction" class="cn.edu.gdupt.action.AddSourceTypeAction"
+		scope="prototype">
+		<property name="sourceTypeService" ref="sourceTypeService"></property>
+	</bean>
+	<bean id="addPlanTypeAction" class="cn.edu.gdupt.action.AddPlanTypeAction"
+		scope="prototype">
+		<property name="planTypeService" ref="planTypeService"></property>
+	</bean>
+	<bean id="searchArticleAction" class="cn.edu.gdupt.action.SearchArticleAction"
+		scope="prototype">
+		<property name="articleService" ref="articleService"></property>
+	</bean>
+	
 	<bean id="videoAddAction" class="cn.edu.gdupt.action.VideoAddAction"
 		scope="prototype">
 		<property name="videoService" ref="videoService"></property>
 	</bean>
-	<bean id="regAction" class="cn.edu.gdupt.action.RegisterAction" scope="prototype">
+	<bean id="regAction" class="cn.edu.gdupt.action.RegisterAction"
+		scope="prototype">
 		<property name="userService" ref="registerService"></property>
 	</bean>
-	
-	<bean id="searchUserAction" class="cn.edu.gdupt.action.SearchUserAction" scope="prototype">
+
+	<bean id="searchUserAction" class="cn.edu.gdupt.action.SearchUserAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
+
 	<bean id="userService" class="cn.edu.gdupt.service.impl.UserServiceImpl">
 		<property name="tUserDAO" ref="TUserDAO"></property>
 	</bean>
-	
+	<bean id="articleService" class="cn.edu.gdupt.service.impl.ArticleServiceImpl">
+		<property name="tArticleDAO" ref="TArticleDAO"></property>
+	</bean>
+	<bean id="studyPlanService" class="cn.edu.gdupt.service.impl.StudyPlanServiceImpl">
+		<property name="tStudyPlanDAO" ref="TStudyPlanDAO"></property>
+	</bean>
+	<bean id="sourceTypeService" class="cn.edu.gdupt.service.impl.SourceTypeServiceImpl">
+		<property name="tSourceTypeDAO" ref="TSourceTypeDAO"></property>
+	</bean>
+	<bean id="planTypeService" class="cn.edu.gdupt.service.impl.PlanTypeServiceImpl">
+		<property name="tPlanTypeDAO" ref="TPlanTypeDAO"></property>
+	</bean>
 	<bean id="loginService" class="cn.edu.gdupt.service.impl.LoginServiceImpl">
 		<property name="tUserDao" ref="TUserDAO"></property>
 	</bean>
-	
+
 	<bean id="registerService" class="cn.edu.gdupt.service.impl.RegisterServiceImpl">
 		<property name="tUserDAO" ref="TUserDAO"></property>
 	</bean>
@@ -59,7 +105,17 @@
 			<list>
 				<value>cn/edu/gdupt/model/TUser.hbm.xml</value>
 				<value>cn/edu/gdupt/model/TArticle.hbm.xml</value>
-				<value>cn/edu/gdupt/model/TVideo.hbm.xml</value></list>
+				<value>cn/edu/gdupt/model/TVideo.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TComment.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TPlanType.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TSourceType.hbm.xml</value>
+				<value>
+					cn/edu/gdupt/model/TStudyPlanArticle.hbm.xml
+				</value>
+				<value>
+					cn/edu/gdupt/model/TStudyPlanVideo.hbm.xml
+				</value>
+				<value>cn/edu/gdupt/model/TStudyPlan.hbm.xml</value></list>
 		</property>
 	</bean>
 	<bean id="transactionManager"
@@ -78,6 +134,40 @@
 		</property>
 	</bean>
 	<bean id="TVideoDAO" class="cn.edu.gdupt.dao.TVideoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="TCommentDAO" class="cn.edu.gdupt.dao.TCommentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPlanTypeDAO" class="cn.edu.gdupt.dao.TPlanTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TSourceTypeDAO"
+		class="cn.edu.gdupt.dao.TSourceTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudyPlanArticleDAO"
+		class="cn.edu.gdupt.dao.TStudyPlanArticleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudyPlanVideoDAO"
+		class="cn.edu.gdupt.dao.TStudyPlanVideoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudyPlanDAO" class="cn.edu.gdupt.dao.TStudyPlanDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

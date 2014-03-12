@@ -1,5 +1,6 @@
 package cn.edu.gdupt.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.LockOptions;
@@ -13,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.gdupt.model.TArticle;
+import cn.edu.gdupt.model.TUser;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -32,8 +34,7 @@ public class TArticleDAO {
 	// property constants
 	public static final String TITLE = "title";
 	public static final String CONTENT = "content";
-	public static final String INTRODUCE = "introduce";
-	public static final String USERID = "userid";
+	public static final String TAG = "tag";
 	public static final String TYPE = "type";
 
 	private SessionFactory sessionFactory;
@@ -99,14 +100,24 @@ public class TArticleDAO {
 		}
 	}
 
-	public List findByProperty(String propertyName, Object value) {
+	public List findByProperty(String propertyName, Object value,boolean isAccurate) {
 		log.debug("finding TArticle instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
-			String queryString = "from TArticle as model where model."
-					+ propertyName + "= ?";
-			Query queryObject = getCurrentSession().createQuery(queryString);
-			queryObject.setParameter(0, value);
+			String queryString =null;
+			Query queryObject;
+			if (!isAccurate) {
+				queryString = "from TArticle as model where model."
+						+ propertyName + " like ?";
+				queryObject = getCurrentSession().createQuery(queryString);
+				queryObject.setParameter(0, "%"+value+"%");
+			}else {
+				queryString = "from TArticle as model where model."
+						+ propertyName + "= ?";
+				
+				queryObject = getCurrentSession().createQuery(queryString);
+				queryObject.setParameter(0, value);
+			}
 			return queryObject.list();
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
@@ -114,24 +125,20 @@ public class TArticleDAO {
 		}
 	}
 
-	public List findByTitle(Object title) {
-		return findByProperty(TITLE, title);
+	public List findByTitle(Object title,boolean isAccurate) {
+		return findByProperty(TITLE, title,isAccurate);
 	}
 
-	public List findByContent(Object content) {
-		return findByProperty(CONTENT, content);
+	public List findByContent(Object content,boolean isAccurate) {
+		return findByProperty(CONTENT, content,isAccurate);
 	}
 
-	public List findByIntroduce(Object introduce) {
-		return findByProperty(INTRODUCE, introduce);
+	public List findByTag(Object tag,boolean isAccurate) {
+		return findByProperty(TAG, tag,isAccurate);
 	}
 
-	public List findByUserid(Object userid) {
-		return findByProperty(USERID, userid);
-	}
-
-	public List findByType(Object type) {
-		return findByProperty(TYPE, type);
+	public List findByType(Object type,boolean isAccurate) {
+		return findByProperty(TYPE, type,isAccurate);
 	}
 
 	public List findAll() {
@@ -184,5 +191,12 @@ public class TArticleDAO {
 
 	public static TArticleDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (TArticleDAO) ctx.getBean("TArticleDAO");
+	}
+
+	public List<TArticle> findByUser(TUser tUser, boolean b) {
+		int userid = tUser.getId();
+	findByProperty("TUser.id", userid, true);
+	System.out.println(findByProperty("TUser.id", userid, true).size());
+		return findByProperty("TUser.id", userid, true);
 	}
 }

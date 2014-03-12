@@ -3,6 +3,7 @@ package cn.edu.gdupt.action;
 import java.util.List;
 
 
+
 import net.sf.json.JSONArray;
 import cn.edu.gdupt.model.TUser;
 import cn.edu.gdupt.service.UserService;
@@ -80,5 +81,6 @@ public class SearchUserAction implements Action {
 	public void settUsers(List<TUser> tUsers) {
 		this.tUsers = tUsers;
 	}
-
+	
+	
 }
