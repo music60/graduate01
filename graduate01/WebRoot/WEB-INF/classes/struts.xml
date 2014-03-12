@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.2.dtd">
+<struts>
+	<!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->
+	<constant name="struts.devMode" value="true" />
+
+	<!--解决乱码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		<default-action-ref name="index" />
+
+		<action name="login" class="loginAction">
+
+			<result name="SUCCESS" type="redirect">/index.jsp</result>
+			<result name="ERROR" type="redirect">/error.jsp</result>
+		</action>
+		<action name="reg" class="regAction">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+	</package>
+	<package name="article" namespace="/article" extends="json-default">
+		<action name="addArticle" class="addArticleAction">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+		<action name="searchArticle" class="searchArticleAction">
+			<!-- <result name="success" type="redirect">/user_search.jsp</result> -->
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+
+		</action>
+	</package>
+	
+	<package name="mine" namespace="/mine" extends="json-default">
+		<action name="getArticles" class="getArticlesByUseridAction">
+			<result name="success" type="redirect">/mine_articles.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="sourceType" namespace="/sourceType" extends="json-default">
+		<action name="addSourceType" class="addSourceTypeAction">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+		<action name="searchArticle" class="searchArticleAction">
+			<!-- <result name="success" type="redirect">/user_search.jsp</result> -->
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+
+		</action>
+	</package>
+	<package name="planType" namespace="/planType" extends="json-default">
+		<action name="addPlanType" class="addPlanTypeAction">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+		<action name="searchArticle" class="searchArticleAction">
+			<!-- <result name="success" type="redirect">/user_search.jsp</result> -->
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+
+		</action>
+	</package>
+	
+	<package name="androidUser" namespace="/android/user" extends="json-default">
+		<action name="login" class="androidUserAction" method="login">
+			<!-- <result name="success" type="redirect">/user_search.jsp</result> -->
+			<result name="success" type="json" >
+				<param name="root">result</param>
+			</result>
+
+		</action>
+	</package>
+	
+	
+	
+	<!-- 用户管理 START -->
+	<package name="user" namespace="/user" extends="json-default">
+		<!-- 用户登录 START -->
+		<action name="login" class="userAction" method="login">
+			<result name="SUCCESS" type="redirect">/index.jsp</result>
+			<result name="ERROR" type="redirect">/error.jsp</result>
+		</action>
+		<!-- 用户登录 END -->
+		
+		<!-- 用户添加 START-->
+		<action name="add" class="userAction" method="add">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+		<!-- 用户添加 END -->
+		
+		<!-- 用户查找 START-->
+		<action name="searchUser" class="userAction" method="search">
+			<!-- <result name="success" type="redirect">/user_search.jsp</result> -->
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 用户查找END -->
+		
+	</package>
+	<!-- 用户管理 END -->
+
+	<package name="video" extends="struts-default" namespace="/video">
+		<action name="addVideo" class="cn.edu.gdupt.action.VideoAddAction">
+			<!-- 动态设置savePath的属性值 -->
+			<!-- <param name="savePath">/images</param> -->
+			<!-- <result name="success">index.jsp</result> -->
+			<!-- <result name="input">/upload/upload.jsp</result> -->
+			<!-- <interceptor-ref name="fileUpload"> -->
+			<!-- 文件过滤 -->
+			<!-- <param name="allowedTypes">audio/mpeg,video/mpeg,image/gif,image/jpeg</param> -->
+			<!-- 文件大小, 以字节为单位 -->
+			<!-- <param name="maximumSize">102595600</param> -->
+			<!-- </interceptor-ref> -->
+			<!-- 默认拦截器必须放在fileUpload之后，否则无效 -->
+			<!-- <interceptor-ref name="defaultStack" /> -->
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+	</package>
+</struts>    
