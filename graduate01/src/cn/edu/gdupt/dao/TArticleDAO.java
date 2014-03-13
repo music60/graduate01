@@ -29,6 +29,16 @@ import cn.edu.gdupt.model.TUser;
  */
 @Transactional
 public class TArticleDAO {
+	
+	public TUserDAO gettUserDAO() {
+		return tUserDAO;
+	}
+
+	public void settUserDAO(TUserDAO tUserDAO) {
+		this.tUserDAO = tUserDAO;
+	}
+
+	private TUserDAO tUserDAO;
 	private static final Logger log = LoggerFactory
 			.getLogger(TArticleDAO.class);
 	// property constants
@@ -37,6 +47,7 @@ public class TArticleDAO {
 	public static final String TAG = "tag";
 	public static final String TYPE = "type";
 
+	
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

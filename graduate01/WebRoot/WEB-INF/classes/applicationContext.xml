@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	xmlns:tx="http://www.springframework.org/schema/tx">
+
+	<bean id="loginAction" class="cn.edu.gdupt.action.LoginAction"
+		scope="prototype">
+		<property name="userService" ref="loginService"></property>
+	</bean>
+	<bean id="userAction" class="cn.edu.gdupt.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="androidUserAction" class="cn.edu.gdupt.action.android.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="minePlanAction" class="cn.edu.gdupt.action.MinePlanAction"
+		scope="prototype">
+		<property name="studyPlanService" ref="studyPlanService"></property>
+	</bean>
+	<bean id="addArticleAction" class="cn.edu.gdupt.action.AddArticleAction"
+		scope="prototype">
+		<property name="articleService" ref="articleService"></property>
+	</bean>
+	<bean id="getArticlesByUseridAction" class="cn.edu.gdupt.action.GetArticlesByUseridAction"
+		scope="prototype">
+		<property name="articleService" ref="articleService"></property>
+	</bean>
+	<bean id="addSourceTypeAction" class="cn.edu.gdupt.action.AddSourceTypeAction"
+		scope="prototype">
+		<property name="sourceTypeService" ref="sourceTypeService"></property>
+	</bean>
+	<bean id="addPlanTypeAction" class="cn.edu.gdupt.action.AddPlanTypeAction"
+		scope="prototype">
+		<property name="planTypeService" ref="planTypeService"></property>
+	</bean>
+	<bean id="searchArticleAction" class="cn.edu.gdupt.action.SearchArticleAction"
+		scope="prototype">
+		<property name="articleService" ref="articleService"></property>
+	</bean>
+	<bean id="videoAddAction" class="cn.edu.gdupt.action.VideoAddAction"
+		scope="prototype">
+		<property name="videoService" ref="videoService"></property>
+	</bean>
+	<bean id="regAction" class="cn.edu.gdupt.action.RegisterAction"
+		scope="prototype">
+		<property name="userService" ref="registerService"></property>
+	</bean>
+
+	<bean id="searchUserAction" class="cn.edu.gdupt.action.SearchUserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<bean id="userService" class="cn.edu.gdupt.service.impl.UserServiceImpl">
+		<property name="tUserDAO" ref="TUserDAO"></property>
+	</bean>
+	<bean id="articleService" class="cn.edu.gdupt.service.impl.ArticleServiceImpl">
+		<property name="tArticleDAO" ref="TArticleDAO"></property>
+	</bean>
+	<bean id="studyPlanService" class="cn.edu.gdupt.service.impl.StudyPlanServiceImpl">
+		<property name="tStudyPlanDAO" ref="TStudyPlanDAO"></property>
+	</bean>
+	<bean id="sourceTypeService" class="cn.edu.gdupt.service.impl.SourceTypeServiceImpl">
+		<property name="tSourceTypeDAO" ref="TSourceTypeDAO"></property>
+	</bean>
+	<bean id="planTypeService" class="cn.edu.gdupt.service.impl.PlanTypeServiceImpl">
+		<property name="tPlanTypeDAO" ref="TPlanTypeDAO"></property>
+	</bean>
+	<bean id="loginService" class="cn.edu.gdupt.service.impl.LoginServiceImpl">
+		<property name="tUserDao" ref="TUserDAO"></property>
+	</bean>
+
+	<bean id="registerService" class="cn.edu.gdupt.service.impl.RegisterServiceImpl">
+		<property name="tUserDAO" ref="TUserDAO"></property>
+	</bean>
+
+	<bean id="videoService" class="cn.edu.gdupt.service.impl.VideoServiceImpl">
+		<property name="tVideoDAO" ref="TVideoDAO"></property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/db_study">
+		</property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/edu/gdupt/model/TUser.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TArticle.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TVideo.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TComment.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TPlanType.hbm.xml</value>
+				<value>cn/edu/gdupt/model/TSourceType.hbm.xml</value>
+				<value>
+					cn/edu/gdupt/model/TStudyPlanArticle.hbm.xml
+				</value>
+				<value>
+					cn/edu/gdupt/model/TStudyPlanVideo.hbm.xml
+				</value>
+				<value>cn/edu/gdupt/model/TStudyPlan.hbm.xml</value></list>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="TUserDAO" class="cn.edu.gdupt.dao.TUserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TArticleDAO" class="cn.edu.gdupt.dao.TArticleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="tUserDAO">
+			<ref bean="TUserDAO"/>
+		</property>
+	</bean>
+	<bean id="TVideoDAO" class="cn.edu.gdupt.dao.TVideoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="TCommentDAO" class="cn.edu.gdupt.dao.TCommentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPlanTypeDAO" class="cn.edu.gdupt.dao.TPlanTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TSourceTypeDAO"
+		class="cn.edu.gdupt.dao.TSourceTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudyPlanArticleDAO"
+		class="cn.edu.gdupt.dao.TStudyPlanArticleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudyPlanVideoDAO"
+		class="cn.edu.gdupt.dao.TStudyPlanVideoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudyPlanDAO" class="cn.edu.gdupt.dao.TStudyPlanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>

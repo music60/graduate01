@@ -40,7 +40,6 @@
 		scope="prototype">
 		<property name="articleService" ref="articleService"></property>
 	</bean>
-	
 	<bean id="videoAddAction" class="cn.edu.gdupt.action.VideoAddAction"
 		scope="prototype">
 		<property name="videoService" ref="videoService"></property>
@@ -131,6 +130,9 @@
 	<bean id="TArticleDAO" class="cn.edu.gdupt.dao.TArticleDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
+		</property>
+		<property name="tUserDAO">
+			<ref bean="TUserDAO"/>
 		</property>
 	</bean>
 	<bean id="TVideoDAO" class="cn.edu.gdupt.dao.TVideoDAO">
