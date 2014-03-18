@@ -120,7 +120,7 @@
 				</div>
 				<!-- END PAGE HEADER-->
 				<!-- BEGIN PAGE CONTENT-->
-				<div class="row-fluid">
+				<div class="row-fluid">									<div class="control-group" style="text-algin:right">							<button type="submit" class="btn blue"><i class="icon-plus"></i> 添加计划</button>						</div>				</div>				<div class="row-fluid">
 					<div class="span12">
 						<!-- BEGIN EXAMPLE TABLE PORTLET-->
 						<div class="portlet box green">
